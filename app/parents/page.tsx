@@ -49,16 +49,15 @@ const safetyPoints = [
 ]
 
 const schedule = [
-  { day: "Понедельник", time: "16:00 - 18:00", activity: "Монтаж видео" },
-  { day: "Среда", time: "16:00 - 18:00", activity: "Обучение съёмке" },
-  { day: "Пятница", time: "16:00 - 18:00", activity: "Подготовка репортажа" },
+  { day: "Вторник", time: "16:00 - 18:00" },
+  { day: "Четверг", time: "16:00 - 18:00" },
   { day: "Суббота", time: "10:00 - 14:00", activity: "Выезд на предприятие" }
 ]
 
 const sampleReports = [
-  { title: "Профессия: Инженер-технолог", location: "Тюменский станкостроительный завод", views: 1240 },
-  { title: "Один день с ветеринаром", location: "Ветеринарная клиника «Айболит»", views: 980 },
-  { title: "Как работает современная пекарня", location: "Хлебозавод №3", views: 856 }
+  { title: "Профессия: Инженер-технолог", location: "Тюменский станкостроительный завод", views: 1240, image: "/images/report1.png"},
+  { title: "Один день с ветеринаром", location: "Ветеринарная клиника «Айболит»", views: 980, image: "/images/report2.png"},
+  { title: "Как работает современная пекарня", location: "Хлебозавод №3", views: 856, image: "/images/report3.png" }
 ]
 
 export default function ParentsPage() {
@@ -86,7 +85,7 @@ export default function ParentsPage() {
 
               <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
                 Наша программа помогает подросткам познакомиться с реальными профессиями 
-                через создание видеорепортажей. Это бесплатно, безопасно и полезно.
+                через создание видеорепортажей. Это недорого, безопасно и полезно.
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
@@ -187,7 +186,7 @@ export default function ParentsPage() {
                   выездов на предприятия региона.
                 </p>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  Участие в программе бесплатное. Все материалы и оборудование предоставляются.
+                  Все материалы и оборудование предоставляются.
                 </p>
               </div>
 
@@ -224,37 +223,54 @@ export default function ParentsPage() {
         </section>
 
         {/* Sample Reports */}
-        <section className="py-20 md:py-28 bg-background">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center mb-16">
-              <span className="text-sm font-semibold text-primary uppercase tracking-wider">Примеры работ</span>
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-                Репортажи наших участников
-              </h2>
-              <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                Посмотрите, какие репортажи создают участники медиа-клуба
-              </p>
+{/* Sample Reports */}
+<section className="py-20 md:py-28 bg-background">
+  <div className="container mx-auto px-4 md:px-6">
+    <div className="mx-auto max-w-3xl text-center mb-16">
+      <span className="text-sm font-semibold text-primary uppercase tracking-wider">Примеры работ</span>
+      <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
+        Репортажи наших участников
+      </h2>
+      <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+        Посмотрите, какие репортажи создают участники медиа-клуба
+      </p>
+    </div>
+
+    {sampleReports.length === 0 ? (
+      <div className="text-center text-muted-foreground">Пока нет доступных репортажей</div>
+    ) : (
+      <div className="grid gap-6 md:grid-cols-3">
+        {sampleReports.map((report, index) => (
+          <Card key={index} className="border-border bg-card overflow-hidden group cursor-pointer">
+            {/* Preview */}
+            <div className="relative aspect-video overflow-hidden">
+              <img
+                src={report.image}
+                alt={report.title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors" />
+
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg group-hover:scale-110 transition-transform">
+                  <Play className="h-6 w-6 ml-1" fill="currentColor" />
+                </div>
+              </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
-              {sampleReports.map((report, index) => (
-                <Card key={index} className="border-border bg-card overflow-hidden group cursor-pointer">
-                  <div className="aspect-video bg-gradient-to-br from-primary/20 via-accent/10 to-primary/5 relative flex items-center justify-center">
-                    <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors" />
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg group-hover:scale-110 transition-transform">
-                      <Play className="h-6 w-6 ml-1" fill="currentColor" />
-                    </div>
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold text-card-foreground mb-1">{report.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-2">{report.location}</p>
-                    <p className="text-xs text-muted-foreground">{report.views} просмотров</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
+            {/* Meta */}
+            <CardContent className="p-4">
+              <h3 className="font-semibold text-card-foreground mb-1">{report.title}</h3>
+              <p className="text-sm text-muted-foreground mb-2">{report.location}</p>
+              <p className="text-xs text-muted-foreground">{report.views} просмотров</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
 
         {/* CTA */}
         <section className="py-20 md:py-28 bg-primary">
@@ -264,7 +280,7 @@ export default function ParentsPage() {
                 Запишите ребёнка в медиа-клуб
               </h2>
               <p className="mt-6 text-lg text-primary-foreground/80 leading-relaxed">
-                Участие бесплатное. Оставьте заявку, и мы свяжемся с вами для уточнения деталей.
+                Стоимость участия 8000 рублей в месяц. Оставьте заявку, и мы свяжемся с вами для уточнения деталей.
               </p>
               <div className="mt-8">
                 <Link href="/join">

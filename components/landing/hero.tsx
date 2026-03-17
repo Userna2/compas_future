@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, Users, Video, MapPin } from "lucide-react"
+import Image from "next/image"
 
 export function Hero() {
   return (
@@ -76,14 +77,28 @@ export function Hero() {
 
           <div className="relative lg:pl-8">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 border border-border">
-              <div className="aspect-video bg-gradient-to-br from-primary/20 via-accent/10 to-primary/5 flex items-center justify-center">
-                <div className="relative">
-                  <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
-                  <button className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors">
-                    <Play className="h-8 w-8 ml-1" fill="currentColor" />
-                  </button>
-                </div>
-              </div>
+              
+<div className="aspect-video relative">
+  {/* background image (covers whole card) */}
+  <Image
+    src="/images/report4.png"      // ← adjust extension if it's .png or .webp
+    alt="Preview"
+    fill
+    sizes="(min-width:1024px) 40vw, 100vw"
+    className="object-cover"
+    priority={false}              // set true if you want it to preload
+  />
+
+  {/* center play button with ping */}
+  <div className="absolute inset-0 flex items-center justify-center">
+    <div className="relative">
+      <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+      <button className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors">
+        <Play className="h-8 w-8 ml-1" fill="currentColor" />
+      </button>
+    </div>
+  </div>
+</div>
               <div className="absolute bottom-4 left-4 right-4 flex gap-2">
                 <div className="flex items-center gap-2 rounded-lg bg-background/90 backdrop-blur px-3 py-2 text-sm shadow-lg">
                   <Video className="h-4 w-4 text-primary" />
@@ -112,7 +127,7 @@ export function Hero() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-card-foreground">Тюмень</p>
-                  <p className="text-xs text-muted-foreground">+42 участника</p>
+                  <p className="text-xs text-muted-foreground">Новый репортаж!</p>
                 </div>
               </div>
             </div>
