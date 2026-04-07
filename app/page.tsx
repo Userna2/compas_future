@@ -16,9 +16,10 @@ export default function HomePage() {
         <Hero />
         <Problem />
         <HowItWorks />
-        <RegionMap />
-        <Professions />
+        {/* <RegionMap /> */}
+        
         <ParentsBenefits />
+        <Professions />
         <CTA />
       </main>
       <Footer />
